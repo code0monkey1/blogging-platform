@@ -1,12 +1,17 @@
-import express, { NextFunction, Request, Response } from "express";
+import express, { NextFunction, Request, Response, json } from "express";
 import logger from "./config/logger";
 import { HttpError } from "http-errors";
 const app = express();
 import "express-async-errors";
+import postRouter from "./routers/post-router";
+
+app.use(json());
 
 app.get("/data", (req, res) => {
     res.json({ data: "will  crash again" });
 });
+
+app.use("/posts", postRouter);
 
 app.use(
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
